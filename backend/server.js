@@ -19,15 +19,15 @@ io.on("connection", socket => {
 
 //Emits data with socket.io as twitter stream flows in
 const stream = () => {
-   twitter.stream('statuses/filter', { track: app.locals.searchTerm }, (stream) => {
-       stream.on('data', (tweet) => {
-           sendMessage(tweet);
-       });
+    twitter.stream('statuses/filter', { track: app.locals.searchTerm }, (stream) => {
+        stream.on('data', (tweet) => {
+            sendMessage(tweet);
+        });
 
-       stream.on('error', (error) => {
-           console.log(error);
-       });
-   });
+        stream.on('error', (error) => {
+            console.log(error);
+        });
+    });
 }
 
 server.get('/',(req, res) => {
