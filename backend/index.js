@@ -1,7 +1,25 @@
-const server = require('./server.js');
+const express = require('express');
+// const cors = require('cors');
+const http = require('http');
+const socketio = require('socket.io');
+const path = require('path');
+const bodyParser = require('body-parser');
+const PORT = 3001;
 
-const PORT = process.env.PORT || 3001;   // in development server will be hosted locally at localhost:5000
+const app = express();
+
+require('dotenv').config({ path: './.env' });
+
+const server = http.createServer(app);
+
+const io = socketio(server);
+
+app.use(bodyParser.json());
+
+// process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
+require('./routes/tweets.js')(app, io);
 
 server.listen(PORT, () => {
-    console.log(`Server is listening on port: ${PORT}`);
+    console.log('server is up');
 });

@@ -29,9 +29,12 @@ const stream = () => {
         });
     });
 }
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
-server.get('/',(req, res) => {
-    res.send("Server base URL is working...");
-});
+require('./routes/tweets.js')(app, io);
+
+// app.get('/',(req, res) => {
+//     res.send("Server base URL is working...");
+// });
 
 module.exports = server;
