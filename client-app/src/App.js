@@ -1,6 +1,6 @@
 import React from 'react';
 import TweetList from './components/TweetList';
-import './App.css';
+// import './App.css';
 
 function App() {
   return (
