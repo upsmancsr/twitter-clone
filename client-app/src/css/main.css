@@ -1,8 +1,19 @@
 a {
   text-decoration: none; }
 
+.grey-border {
+  border-top: 1px solid #38444d;
+  border-left: 1px solid #38444d;
+  border-right: 1px solid #38444d; }
+
 .grey-text {
   color: #8799a6; }
+
+.white-text {
+  color: white; }
+
+.bold {
+  font-weight: bold; }
 
 .responsive-image {
   height: auto;
@@ -20,9 +31,6 @@ a {
   align-items: center; }
 
 .card {
-  border-top: 1px solid grey;
-  border-left: 1px solid grey;
-  border-right: 1px solid grey;
   display: flex;
   justify-content: flex-start;
   width: 100%;
@@ -38,15 +46,13 @@ a {
     justify-content: flex-start; }
   .card .tweet-author {
     margin: 0 5px 0 5px;
-    text-decoration: none;
-    color: #8799a6; }
+    display: flex;
+    justify-content: space-between; }
   .card .tweet-timestamp {
-    margin: 0 5px 0 5px;
-    color: #8799a6; }
+    margin: 0 5px 0 5px; }
   .card .tweet-text {
     width: 100%;
-    padding: 5px 5px 5px 5px;
-    color: white; }
+    padding: 5px 5px 5px 5px; }
 
 .card:last-child {
   border-bottom: 1px solid grey; }

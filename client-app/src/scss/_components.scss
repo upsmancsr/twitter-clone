@@ -9,9 +9,6 @@
 }
 
 .card {
-	border-top: 1px solid grey;
-	border-left: 1px solid grey;
-	border-right: 1px solid grey;
 	display: flex;
 	justify-content: flex-start;
 	width: 100%;
@@ -34,19 +31,17 @@
 
 	.tweet-author {
 		margin: 0 5px 0 5px;
-		text-decoration: none;
-		color: #8799a6;
+		display: flex;
+		justify-content: space-between;
 	}
 
 	.tweet-timestamp {
 		margin: 0 5px 0 5px;
-		color: #8799a6;
 	}
 
 	.tweet-text {
 		width: 100%;
 		padding: 5px 5px 5px 5px;
-		color: white;
 	}
 }
 

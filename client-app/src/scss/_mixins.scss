@@ -2,8 +2,22 @@ a {
 	text-decoration: none;
 }
 
+.grey-border {
+	border-top: 1px solid #38444d;
+	border-left: 1px solid #38444d;
+	border-right: 1px solid #38444d;
+}
+
 .grey-text {
 	color: #8799a6;
+}
+
+.white-text {
+	color: white;
+}
+
+.bold {
+	font-weight: bold;
 }
 
 .responsive-image {
