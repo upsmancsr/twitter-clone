@@ -1,10 +1,26 @@
 import React from 'react';
 import '../scss/main.scss';
+import moment from "moment";
 
 class CardComponent extends React.Component {
-    render() {
-        let data = this.props.data;
+    
+    timeElapsed = (created_at) =>  {
+        console.log('timeElapsed Called');
+        const tweetTime = new Date(created_at).toLocaleTimeString('en-US');
+        const currentDate = new Date;
+        const currentTime = currentDate.toLocaleTimeString('en-US');
+        return tweetTime - currentTime;
+    }
 
+    render() {
+        const data = this.props.data;
+        // const postTimeMoment = moment(data.timestamp_ms);
+        // const currentDate = new Date();
+        // const currentTime = currentDate.getTime();
+        // const currentTimeMoment = moment(currentTime);
+        // const diff = currentTimeMoment.diff(postTimeMoment);
+        // const diffDuration = moment.duration(diff);
+        // console.log('diffDuration:', diffDuration);
         return (
             <div className='card'>
                 <div className='card-profile-image'>
@@ -14,10 +30,11 @@ class CardComponent extends React.Component {
                 <div className='card-content'>
                     <div className='tweet-header'> 
                         <div className='tweet-author'>
-                            <a href={`https://twitter.com/${data.user.screen_name}`} target='_blank'>{`@${data.user.screen_name}`}</a>
+                            <a className='grey-text' href={`https://twitter.com/${data.user.screen_name}`} target='_blank'>{`@${data.user.screen_name}`}</a>
                         </div>
 
                         <div className='tweet-timestamp'>
+                            {/* {data.timestamp_ms} */}
                             {new Date(data.created_at).toLocaleTimeString()}
                         </div>
                     </div>

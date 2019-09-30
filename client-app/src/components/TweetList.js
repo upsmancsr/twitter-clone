@@ -7,25 +7,28 @@ import '../scss/main.scss';
 class TweetList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { items: [], searchTerm: 'JavaScript' };
+    this.state = { 
+        tweets: [], 
+        searchTerm: 'JavaScript' 
+    };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleKeyPress = this.handleKeyPress.bind(this);
-    this.handleResume = this.handleResume.bind(this);
-    this.handlePause = this.handlePause.bind(this);
+    // this.handleChange = this.handleChange.bind(this);
+    // this.handleKeyPress = this.handleKeyPress.bind(this);
+    // this.handleResume = this.handleResume.bind(this);
+    // this.handlePause = this.handlePause.bind(this);
   }
 
-  handleChange(event) {
+  handleChange = event => {
     this.setState({ searchTerm: event.target.value });
   }
 
-  handleKeyPress(event) {
+  handleKeyPress = event => {
     if (event.key === 'Enter') {
       this.handleResume();
     }
   }
 
-  handleResume() {
+  handleResume = () => {
     let term = this.state.searchTerm;
     fetch('/setSearchTerm',
       {
@@ -37,7 +40,7 @@ class TweetList extends React.Component {
       })
   }
 
-  handlePause(event) {
+  handlePause = event => {
     fetch('/pause',
       {
         method: 'POST',
@@ -47,36 +50,35 @@ class TweetList extends React.Component {
       })
   }
 
-componentDidMount() {
-  const socket = socketIOClient('http://localhost:3001/');
+  componentDidMount() {
+    const socket = socketIOClient('http://localhost:3001/');
 
-  socket.on('connect', () => {
-    console.log('Socket Connected');
-    socket.on('tweets', data => {
-      console.info(data);
-      let newList = [data].concat(this.state.items.slice(0, 15));
-      this.setState({ items: newList });
+    socket.on('connect', () => {
+      console.log('Socket Connected');
+      socket.on('tweets', data => {
+        console.info(data);
+        let newList = [data].concat(this.state.tweets.slice(0, 15));
+        this.setState({ tweets: newList });
+      });
     });
-  });
-  socket.on('disconnect', () => {
-    socket.off('tweets')
-    socket.removeAllListeners('tweets');
-    console.log('Socket Disconnected');
-  });
-}
-
+    socket.on('disconnect', () => {
+      socket.off('tweets')
+      socket.removeAllListeners('tweets');
+      console.log('Socket Disconnected');
+    });
+  }
 
   render() {
-    let items = this.state.items;
+    let tweets = this.state.tweets;
 
-    let itemsCards = <TransitionGroup
-      transitionName='example'
-      transitionEnterTimeout={500}
-      transitionLeaveTimeout={300}>
-      {items.map((x, i) =>
-        <CardComponent key={i} data={x} />
-      )}
-    </TransitionGroup>;
+    // let itemsCards = <TransitionGroup
+    //   transitionName='example'
+    //   transitionEnterTimeout={500}
+    //   transitionLeaveTimeout={300}>
+    //   {items.map((x, i) =>
+    //     <CardComponent key={i} data={x} />
+    //   )}
+    // </TransitionGroup>;
 
     let searchControls =
       <div>
@@ -86,19 +88,14 @@ componentDidMount() {
 
     let filterControls = 
         <div>
-        <a className='btn-floating btn-small waves-effect waves-light pink accent-2' style={controlStyle} onClick={this.handleResume}><i className='material-icons'>play_arrow</i></a>
-        <a className='btn-floating btn-small waves-effect waves-light pink accent-2' onClick={this.handlePause} ><i className='material-icons'>pause</i></a>
+        <button className='play-btn' onClick={this.handleResume}><i className='material-icons'>Start stream</i></button>
+        <button className='pause-btn' onClick={this.handlePause} ><i className='material-icons'>Pause stream</i></button>
         <p>
             <input type='checkbox' id='test5' />
-            <label htmlFor='test5'>Retweets</label>
+            <label htmlFor='test5'>Show Retweets</label>
         </p>
         </div>
 
-    let controls = <div>
-      {
-        items.length > 0 ? filterControls : null
-      }
-    </div>
 
     let loading = <div>
       <p className='flow-text'>Listening to Streams</p>
@@ -113,15 +110,15 @@ componentDidMount() {
           <div className='input-field col s12'>
             {searchControls}
             {
-              items.length > 0 ? controls : null
+              tweets.length > 0 ? filterControls : null
             }
           </div>
         </div>
 
         <div>
-            {items.length > 0 ? (
+            {tweets.length > 0 ? (
                 <div className='col s12 m4 l4'>
-                    {items.map((x, i) =>
+                    {tweets.map((x, i) =>
                         <CardComponent key={i} data={x} />
                     )} 
                 </div>

@@ -1,11 +1,13 @@
 import React from 'react';
-import TweetList from './components/TweetList';
-// import './App.css';
+import MainDashboard from './components/MainDashboard';
+
+import './scss/main.scss';
+
 
 function App() {
   return (
     <div className="App">        
-      <TweetList/>
+      <MainDashboard />
     </div>
   );
 }
